@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>SnipStashi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=JetBrains+Mono:wght@400;500&family=Permanent+Marker&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="app kraft">
+    <header class="topbar">
+      <div class="brand">
+        <img class="brand-logo" src="brand/full-logo.png" alt="SnipStashi" />
+      </div>
+      <div class="topbar-actions">
+        <div class="search">
+          <svg class="search-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="8.5" cy="8.5" r="6" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M17 17L13.2 13.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+          <input id="searchInput" type="text" placeholder="Buscar nos snips…" autocomplete="off" />
+        </div>
+        <button id="settingsBtn" class="icon-btn" title="Configurações" aria-label="Configurações">
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M16.2 10.9c.03-.3.05-.6.05-.9s-.02-.6-.05-.9l1.6-1.25a.6.6 0 00.14-.76l-1.5-2.6a.6.6 0 00-.73-.26l-1.9.76a6.6 6.6 0 00-1.55-.9l-.29-2.02a.6.6 0 00-.6-.52H8.63a.6.6 0 00-.6.52l-.29 2.02c-.56.22-1.08.52-1.55.9l-1.9-.76a.6.6 0 00-.73.26l-1.5 2.6a.6.6 0 00.14.76L3.8 9.1c-.03.3-.05.6-.05.9s.02.6.05.9L2.2 12.15a.6.6 0 00-.14.76l1.5 2.6c.15.26.46.36.73.26l1.9-.76c.47.38.99.68 1.55.9l.29 2.02c.05.3.3.52.6.52h2.82c.3 0 .55-.22.6-.52l.29-2.02c.56-.22 1.08-.52 1.55-.9l1.9.76c.27.1.58 0 .73-.26l1.5-2.6a.6.6 0 00-.14-.76L16.2 10.9z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <nav id="tagBar" class="tagbar" aria-label="Tags"></nav>
+
+    <div id="searchTagResults" class="search-tag-results hidden"></div>
+
+    <main id="list" class="list"></main>
+
+    <div id="emptyState" class="empty-state hidden">
+      <div class="empty-paper torn-2">
+        <img class="empty-mascots" src="brand/logo-no-text.png" alt="" aria-hidden="true" />
+        <p class="empty-title">SnipStashi vazio</p>
+        <p class="empty-sub">Toque em “+” ou selecione um texto em qualquer página e use o botão direito → Salvar no SnipStashi.</p>
+      </div>
+    </div>
+
+    <button id="addBtn" class="fab" title="Novo item" aria-label="Novo item">+</button>
+  </div>
+
+  <!-- Modal de edição / criação — washi FORA do clip-path -->
+  <div id="editModal" class="modal-backdrop hidden">
+    <div class="modal-sheet">
+      <div class="modal-washi washi-violet" aria-hidden="true"></div>
+      <div class="modal modal-paper torn-1">
+        <h2 id="modalTitle" class="modal-title">Novo item</h2>
+        <textarea id="itemText" class="item-textarea" placeholder="Cole ou digite o texto, fórmula ou trecho de código…" rows="5"></textarea>
+
+        <div class="modal-section">
+          <label class="modal-label">Tags</label>
+          <div id="tagPicker" class="tag-picker"></div>
+          <div class="tag-add-row">
+            <input id="newTagInput" type="text" placeholder="Nova tag…" />
+            <button id="newTagBtn" class="btn-small">Adicionar</button>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <label class="modal-label">Cor do papel</label>
+          <div id="paperColorPicker" class="swatch-picker" role="listbox" aria-label="Cor do papel"></div>
+        </div>
+
+        <div class="modal-section pin-row">
+          <label class="pin-toggle">
+            <input type="checkbox" id="pinCheckbox" />
+            <span>Fixar no topo</span>
+          </label>
+        </div>
+
+        <div id="washiSection" class="modal-section hidden">
+          <label class="modal-label">Washi</label>
+          <div id="washiPicker" class="washi-picker" role="listbox" aria-label="Washi"></div>
+        </div>
+
+        <div class="modal-actions">
+          <button id="deleteBtn" class="btn-danger hidden">Excluir</button>
+          <div class="modal-actions-right">
+            <button id="cancelBtn" class="btn-ghost">Cancelar</button>
+            <button id="saveBtn" class="btn-primary">Salvar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Painel de configurações -->
+  <div id="settingsModal" class="modal-backdrop hidden">
+    <div class="modal-sheet">
+      <div class="modal-washi washi-mint" aria-hidden="true"></div>
+      <div class="modal modal-paper torn-3">
+        <h2 class="modal-title">Configurações</h2>
+
+        <div class="modal-section theme-row">
+          <div class="theme-row-text">
+            <label class="modal-label theme-label">Modo minimal</label>
+            <p class="theme-sub">Interface limpa, sem texturas nem ornamentos</p>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="minimalToggle" />
+            <span class="switch-track"><span class="switch-thumb"></span></span>
+          </label>
+        </div>
+
+        <div class="modal-section">
+          <label class="modal-label">Tag exibida por padrão ao abrir</label>
+          <select id="defaultTagSelect"></select>
+        </div>
+
+        <div class="modal-section">
+          <label class="modal-label">Gerenciar tags</label>
+          <div id="tagManageList" class="tag-manage-list"></div>
+        </div>
+
+        <div class="modal-section sync-zone">
+          <label class="modal-label">Google Drive (opcional)</label>
+          <p class="backup-sub" id="driveSyncBlurb">
+            Conecte o Drive para sincronizar snips entre aparelhos. Sem conexão, tudo continua só neste Chrome.
+          </p>
+          <p class="sync-status" id="driveSyncStatus" aria-live="polite"></p>
+          <div class="backup-actions" id="driveSyncActions">
+            <span class="drive-btn-wrap" id="connectDriveWrap">
+              <button id="connectDriveBtn" class="btn-ghost" type="button">Conectar Google Drive</button>
+            </span>
+            <span class="drive-btn-wrap hidden" id="syncNowWrap">
+              <button id="syncNowBtn" class="btn-ghost" type="button">Sincronizar agora</button>
+            </span>
+            <span class="drive-btn-wrap hidden" id="disconnectDriveWrap">
+              <button id="disconnectDriveBtn" class="btn-ghost" type="button">Desconectar</button>
+            </span>
+          </div>
+        </div>
+
+        <div class="modal-section backup-zone">
+          <label class="modal-label">Backup dos dados</label>
+          <p class="backup-sub">Exporte um arquivo JSON para não perder snips se o Chrome limpar dados, você trocar de PC ou reinstalar a extensão.</p>
+          <div class="backup-actions">
+            <button id="exportBackupBtn" class="btn-ghost" type="button">Exportar backup</button>
+            <button id="importBackupBtn" class="btn-ghost" type="button">Importar backup</button>
+          </div>
+          <input id="importBackupInput" type="file" accept="application/json,.json" hidden />
+        </div>
+
+        <div class="modal-section danger-zone">
+          <label class="modal-label">Zona de risco</label>
+          <button id="deleteAllBtn" class="btn-danger">Excluir todos os dados</button>
+        </div>
+
+        <div class="modal-actions">
+          <div class="modal-actions-right">
+            <button id="closeSettingsBtn" class="btn-primary">Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmação de exclusão total -->
+  <div id="confirmDeleteModal" class="modal-backdrop hidden">
+    <div class="modal-sheet">
+      <div class="modal-washi washi-coral" aria-hidden="true"></div>
+      <div class="modal modal-paper torn-2">
+        <h2 class="modal-title">Excluir todos os dados?</h2>
+        <p class="danger-warning">Essa ação é irreversível. Todos os itens e tags salvos serão apagados permanentemente — não há como desfazer. Se ainda não tiver, exporte um backup antes.</p>
+        <label class="pin-toggle">
+          <input type="checkbox" id="confirmDeleteCheckbox" />
+          <span>Entendo que essa ação não pode ser desfeita</span>
+        </label>
+        <div class="modal-actions">
+          <button id="cancelDeleteAllBtn" class="btn-ghost">Cancelar</button>
+          <div class="modal-actions-right">
+            <button id="confirmDeleteAllBtn" class="btn-danger" disabled>Excluir tudo</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="storage.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

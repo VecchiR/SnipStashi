@@ -1,0 +1,14 @@
+# Dependências / build
+node_modules/
+dist/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+.idea/
+.vscode/
+*.swp
+
+# Tooling local
+.firecrawl/

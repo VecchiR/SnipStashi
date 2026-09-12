@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Política de Privacidade — SnipStashi</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #2c1810;
+      --muted: #6b5344;
+      --bg: #faf6ef;
+      --card: #fffdf8;
+      --accent: #8b5cf6;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: linear-gradient(160deg, #f7f0e4 0%, #eef6f2 45%, #f3eefc 100%);
+      color: var(--ink);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    main {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 48px 20px 72px;
+    }
+    h1 {
+      font-size: 1.75rem;
+      margin: 0 0 8px;
+      letter-spacing: -0.02em;
+    }
+    .meta {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 28px;
+    }
+    section {
+      background: var(--card);
+      border: 1px solid rgba(44, 24, 16, 0.08);
+      border-radius: 12px;
+      padding: 20px 22px;
+      margin-bottom: 14px;
+    }
+    h2 {
+      font-size: 1.05rem;
+      margin: 0 0 8px;
+    }
+    p, li { color: var(--ink); margin: 0 0 8px; }
+    ul { margin: 0; padding-left: 1.2rem; }
+    a { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Política de Privacidade — SnipStashi</h1>
+    <p class="meta">Última atualização: 12 de setembro de 2026</p>
+
+    <section>
+      <h2>Resumo</h2>
+      <p>
+        O SnipStashi é uma extensão para Google Chrome que guarda textos e trechos
+        (snips) no armazenamento local do Chrome (<code>chrome.storage.local</code>).
+      </p>
+      <p>
+        Não operamos servidores de conta e não vendemos dados. O envio à nuvem
+        só ocorre se <strong>você optar</strong> por conectar o seu Google Drive
+        para sincronização.
+      </p>
+    </section>
+
+    <section>
+      <h2>Dados que a extensão armazena</h2>
+      <ul>
+        <li>Textos que você salva (itens / snips)</li>
+        <li>Tags e preferências (ex.: tag padrão, modo minimal)</li>
+        <li>Metadados visuais dos cartões (cor, fixação, etc.)</li>
+        <li>Estado opcional de sync (conectado ou não, último erro, ids do arquivo no Drive)</li>
+      </ul>
+      <p>
+        Por padrão, esses dados permanecem no perfil do Chrome em que a extensão
+        está instalada.
+      </p>
+    </section>
+
+    <section>
+      <h2>Google Drive (opcional)</h2>
+      <p>
+        Se você escolher <em>Conectar Google Drive</em>, a extensão solicita
+        autorização OAuth e grava um arquivo de sync na pasta
+        <code>Chrome Extensions / SnipStashi</code> do <strong>seu</strong> Drive.
+        Usamos o escopo <code>drive.file</code> (apenas arquivos criados pela
+        extensão), não o Drive inteiro.
+      </p>
+      <p>
+        Sem essa conexão, nenhum snip é enviado a serviços Google nem a outros
+        servidores.
+      </p>
+      <p>
+        Você pode desconectar a qualquer momento; os dados locais permanecem e o
+        arquivo no Drive não é apagado automaticamente.
+      </p>
+    </section>
+
+    <section>
+      <h2>Backup exportado por você</h2>
+      <p>
+        Se você usar <em>Exportar backup</em>, um arquivo JSON é baixado no seu
+        dispositivo. Esse arquivo fica sob o seu controle; a extensão não o envia
+        a nenhum servidor.
+      </p>
+    </section>
+
+    <section>
+      <h2>Permissões</h2>
+      <ul>
+        <li><strong>storage</strong> — salvar e ler seus snips localmente</li>
+        <li><strong>contextMenus</strong> — opção “Salvar no SnipStashi” no menu de contexto</li>
+        <li><strong>notifications</strong> — aviso ao salvar um trecho selecionado</li>
+        <li><strong>identity</strong> — OAuth do Google, só se você conectar o Drive</li>
+        <li><strong>alarms</strong> — sync periódico em segundo plano quando o Drive está conectado</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Compartilhamento com terceiros</h2>
+      <p>
+        Não vendemos o conteúdo dos seus snips. Com o Drive conectado, o Google
+        processa o arquivo de sync conforme a política da conta Google dele —
+        a extensão não opera um backend próprio.
+      </p>
+      <p>
+        Fontes tipográficas podem ser carregadas do Google Fonts ao abrir o popup
+        (apenas para exibição da interface).
+      </p>
+    </section>
+
+    <section>
+      <h2>Contato</h2>
+      <p>
+        Dúvidas sobre privacidade: use o e-mail ou o canal de suporte indicado
+        na página da extensão na Chrome Web Store.
+      </p>
+    </section>
+  </main>
+</body>
+</html>

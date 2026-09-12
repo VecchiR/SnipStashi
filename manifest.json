@@ -1,0 +1,45 @@
+{
+  "manifest_version": 3,
+  "name": "SnipStashi",
+  "description": "Salve textos, fórmulas e trechos de código que você usa sempre. Um clique copia, outro clique edita — com Snip e Stashi.",
+  "version": "1.4.0",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0X7Obta9hCIVHpsjtfpUKik0EKfIZJyvdRMpSuVd96UUp1/nxRgbS/TGkdV98UpMmMjDdRaapyBJrFLInDW6ebT3p/5tIVZNGL7jzShnOP3Jo/JgW5tJ1byKCftwx9u2//4MKJv7tpKqzMWWzy8n0k3hUMqFa7cC+kyr5C/3viLjzB4Uq3WH15YLjNoeZ35tJ5DPcM4haUWZV3TgfhDv3WvALoVSMeCTdYjBLTQipLGYB8t1NMZ4g+o7I/UqAw1t8khWtwpSee85kCLSJaw5/gCMyvA2DQRXDgGuelWOhTcAq1xEhxKV04mxB2cTFIg28c4SCEE7EQqLad6gv1BZ0wIDAQAB",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "SnipStashi",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "storage",
+    "contextMenus",
+    "notifications",
+    "identity",
+    "alarms"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1:39217/*",
+    "https://www.googleapis.com/*"
+  ],
+  "oauth2": {
+    "client_id": "51789093820-a9iepemd6onvat0dacrghb3l2of6sv1t.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive.file",
+      "https://www.googleapis.com/auth/userinfo.email"
+    ]
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' http://127.0.0.1:39217 https://www.googleapis.com"
+  }
+}

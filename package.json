@@ -1,0 +1,9 @@
+{
+  "name": "snipstashi-extension",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "watch": "node scripts/watch.mjs",
+    "pack": "node scripts/pack.mjs"
+  }
+}
