@@ -1,5 +1,3 @@
-<img width="856" height="856" alt="full-logo" src="https://github.com/user-attachments/assets/9847869e-cd83-41a9-ae39-37a7af864934" />
-
 # SnipStashi
 
 Extensão Chrome para salvar e reutilizar textos, fórmulas, trechos de código e qualquer outro texto que você sempre precise retilizar.
